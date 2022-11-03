@@ -1,5 +1,18 @@
 services:
-  fullstack:
+  #  fullstack:
+  #    ports:
+  #      - "8080:8080"
+  #    image: abulbrr/spring-react-fullstack:v1
+  postgres:
+    image: postgres:alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     ports:
-      - "8080:8080"
-    image: abulbrr/spring-react-fullstack:v1
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pguser
+      POSTGRES_DB: pgdb
+volumes:
+  postgres-data:
+    driver: local
