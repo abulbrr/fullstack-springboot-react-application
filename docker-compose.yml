@@ -3,8 +3,9 @@ services:
   #    ports:
   #      - "8080:8080"
   #    image: abulbrr/spring-react-fullstack:v1
-  postgres:
+  postgres-db:
     image: postgres:alpine
+    container_name: postgres-db
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
@@ -12,7 +13,10 @@ services:
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pguser
-      POSTGRES_DB: pgdb
 volumes:
   postgres-data:
     driver: local
+networks:
+  default:
+    external:
+      name: db
