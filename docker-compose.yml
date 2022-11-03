@@ -1,0 +1,5 @@
+services:
+  fullstack:
+    ports:
+      - "8080:8080"
+    image: abulbrr/spring-react-fullstack:v1
