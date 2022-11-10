@@ -11,7 +11,7 @@ import {
 
 import './App.css';
 import StudentDrawerForm from "./StudentDrawerForm";
-import {successNotification} from "./Notification";
+import {errorNotification, successNotification} from "./Notification";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -35,9 +35,15 @@ function App() {
 
     function removeStudent(student) {
         deleteStudent(student)
-            .then(() => successNotification("Deleted successfully"))
-            .catch(console.log)
-            .then(() => fetchStudents())
+            .then(() => {
+                successNotification("Deleted successfully");
+                fetchStudents();
+            })
+            .catch((err) => {
+                err.response.json().then(error => {
+                    errorNotification("There was an error", `${error.message} [${error.status}] [${error.error}]`);
+                })
+            })
     }
 
     const columns = [
@@ -95,7 +101,6 @@ function App() {
             .then(res => res.json())
             .then(data => {
                 setStudents(data)
-                console.log(data)
                 setFetching(false)
             })
     }

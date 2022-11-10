@@ -10,6 +10,7 @@ export const getAllStudents = () => {
 
 export const addStudent = (student) => {
     return fetch("api/v1/students", createHeader(student, REST_VERBS.POST))
+        .then(checkStatus)
 }
 
 export const deleteStudent = (student) => {
